@@ -12,7 +12,7 @@ The project is structured as a robust **Full-Stack hybrid SPA/API architecture**
 
 ```
                                               ┌────────────────────────┐
-                                              │      Google Drive       │
+                                              │      Google Drive      │
                                               │    (Google Slides)     │
                                               └───────────▲────────────┘
                                                           │ (Popup OAuth)
