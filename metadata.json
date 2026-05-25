@@ -1,0 +1,6 @@
+{
+  "name": "AI PPT Generator",
+  "description": "Generate, edit, customize, and download beautiful PowerPoint presentations using AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
