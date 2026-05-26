@@ -534,7 +534,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
 
           <button
             onClick={() => setIsPresenting(true)}
-            className="bg-indigo-650 hover:bg-indigo-700 hover:text-white text-white font-medium text-xs px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer border border-indigo-500 transition shadow-sm hover:shadow active:scale-95"
+            className="bg-indigo-600 hover:bg-indigo-700 hover:text-white text-white font-medium text-xs px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer border border-indigo-500 transition shadow-sm hover:shadow active:scale-95"
           >
             <MonitorPlay className="h-3.5 w-3.5 text-indigo-200" />
             <span>Present (Slideshow)</span>
@@ -791,7 +791,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                     
                     <div className="grid grid-cols-2 gap-6 mt-4 flex-1">
                       {/* Left Column */}
-                      <div className="border-r border-slate-150 pr-4 space-y-3 flex flex-col justify-center">
+                      <div className="border-r border-slate-200 pr-4 space-y-3 flex flex-col justify-center">
                         <span className="text-[10px] font-bold uppercase tracking-widest block opacity-75 font-mono" style={{ color: deck.colors.secondary }}>Section Focus A</span>
                         {(activeSlide.bullets || []).slice(0, Math.max(1, Math.ceil((activeSlide.bullets || []).length / 2))).map((bullet, idx) => (
                           <div key={idx} className="flex items-start gap-2 relative">
@@ -1043,7 +1043,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                                         <button
                                           type="button"
                                           onClick={() => handleRemoveImage(0)}
-                                          className="absolute top-2 right-2 p-1.5 bg-red-500 hover:bg-red-650 text-white rounded-full opacity-0 group-hover/image:opacity-100 transition shadow"
+                                          className="absolute top-2 right-2 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-full opacity-0 group-hover/image:opacity-100 transition shadow"
                                         >
                                           <Trash2 className="h-3.5 w-3.5" />
                                         </button>
@@ -1286,7 +1286,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                           <select
                             value={activeSlide.imageCount !== undefined ? activeSlide.imageCount : ((activeSlide.images || []).length > 0 ? (activeSlide.images || []).length : (activeSlide.image ? 1 : 0))}
                             onChange={(e) => handleUpdateSlideField('imageCount', parseInt(e.target.value))}
-                            className="bg-white dark:bg-slate-800 p-2 text-xs rounded-lg border border-slate-200 w-full outline-none text-slate-850 dark:text-slate-150"
+                            className="bg-white dark:bg-slate-800 p-2 text-xs rounded-lg border border-slate-200 w-full outline-none text-slate-800 dark:text-slate-200"
                           >
                             <option value={0}>No Images (Pure Text Columns)</option>
                             <option value={1}>1 Image (Standard Grid column)</option>
@@ -1306,7 +1306,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                                   <div key={idx} className="flex items-center gap-2">
                                     <span className="text-[9px] font-bold text-slate-400">File {idx + 1}:</span>
                                     {hasUploaded ? (
-                                      <div className="flex items-center justify-between bg-white dark:bg-slate-805 border border-slate-202 p-1 px-2 rounded-lg text-[10px] flex-1 text-slate-800 dark:text-slate-100">
+                                      <div className="flex items-center justify-between bg-white dark:bg-slate-800 border border-slate-200 p-1 px-2 rounded-lg text-[10px] flex-1 text-slate-800 dark:text-slate-100">
                                         <span className="truncate max-w-[80px] text-emerald-600 font-bold">✓ Ready</span>
                                         <button
                                           type="button"
@@ -1317,7 +1317,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                                         </button>
                                       </div>
                                     ) : (
-                                      <label className="flex-1 bg-white hover:bg-slate-50 dark:bg-slate-850 border border-slate-200 p-1 px-2 rounded-lg text-[9px] font-bold text-indigo-600 dark:text-indigo-400 cursor-pointer text-center block tracking-wide truncate">
+                                      <label className="flex-1 bg-white hover:bg-slate-50 dark:bg-slate-800 border border-slate-200 p-1 px-2 rounded-lg text-[9px] font-bold text-indigo-600 dark:text-indigo-400 cursor-pointer text-center block tracking-wide truncate">
                                         Select Image {idx + 1}...
                                         <input
                                           type="file"
@@ -1504,7 +1504,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                 {/* Background color */}
                 <div className="space-y-1 bg-slate-50 dark:bg-slate-900/60 p-2 rounded-xl border border-slate-100/80 dark:border-slate-800">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide block">Background</label>
-                  <div className="flex items-center gap-1.5 font-mono text-slate-850 dark:text-slate-150">
+                  <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
                     <input
                       type="color"
                       value={deck.colors.bg || '#ffffff'}
@@ -1529,7 +1529,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                 {/* Primary header color */}
                 <div className="space-y-1 bg-slate-50 dark:bg-slate-900/60 p-2 rounded-xl border border-slate-100/80 dark:border-slate-800">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide block">Headings</label>
-                  <div className="flex items-center gap-1.5 font-mono text-slate-850 dark:text-slate-150">
+                  <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
                     <input
                       type="color"
                       value={deck.colors.primary || '#000000'}
@@ -1554,7 +1554,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                 {/* Secondary color */}
                 <div className="space-y-1 bg-slate-50 dark:bg-slate-900/60 p-2 rounded-xl border border-slate-100/80 dark:border-slate-800">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide block">Subtitles</label>
-                  <div className="flex items-center gap-1.5 font-mono text-slate-850 dark:text-slate-150">
+                  <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
                     <input
                       type="color"
                       value={deck.colors.secondary || '#666666'}
@@ -1579,7 +1579,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                 {/* Accent Highlight */}
                 <div className="space-y-1 bg-slate-50 dark:bg-slate-900/60 p-2 rounded-xl border border-slate-100/80 dark:border-slate-800">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide block">Accent Line</label>
-                  <div className="flex items-center gap-1.5 font-mono text-slate-850 dark:text-slate-150">
+                  <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
                     <input
                       type="color"
                       value={deck.colors.accent || '#4f46e5'}
@@ -1604,7 +1604,7 @@ export function Editor({ presentationId, onNavigate, darkMode, setDarkMode }: Ed
                 {/* Text Color */}
                 <div className="space-y-1 bg-slate-50 dark:bg-slate-900/60 p-2 rounded-xl border border-slate-100/80 dark:border-slate-800 col-span-2">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide block">Body Bullet Text</label>
-                  <div className="flex items-center gap-1.5 font-mono text-slate-850 dark:text-slate-150">
+                  <div className="flex items-center gap-1.5 font-mono text-slate-800 dark:text-slate-200">
                     <input
                       type="color"
                       value={deck.colors.text || '#1f2937'}

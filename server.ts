@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import { db, Slide } from "./server/db";
-import { supabase, getSupabaseStatus } from "./server/supabase";
+import { supabase, getSupabaseStatus, LOCAL_ONLY } from "./server/supabase";
 import { generateSlideContent, themeTemplates, generateImageFromPrompt, generateSvgFromPrompt } from "./server/ai";
 import { buildPptxBuffer } from "./server/pptx";
 
@@ -65,27 +65,29 @@ app.post("/api/auth/register", async (req, res) => {
   const pseudoEmail = cleanName.includes('@') ? cleanName.toLowerCase() : `${cleanName.toLowerCase()}@local.com`;
 
   // 1. Try Supabase Auth First
-  try {
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: pseudoEmail,
-      password,
-    });
+  if (!LOCAL_ONLY) {
+    try {
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: pseudoEmail,
+        password,
+      });
 
-    if (!authError && authData?.user) {
-      const newUser = {
-        id: authData.user.id,
-        name: cleanName,
-        passwordHash: "",
-        createdAt: new Date().toISOString()
-      };
-      await db.createUser(newUser); // Syncs with Supabase public.users if enabled, and local registry fallback
-      const token = jwt.sign({ id: newUser.id, name: cleanName }, JWT_SECRET, { expiresIn: '7d' });
-      return res.status(201).json({ token, user: { id: newUser.id, name: cleanName } });
-    } else if (authError) {
-      console.warn("Supabase Auth registration yielded an error, falling back to local database...", authError.message);
+      if (!authError && authData?.user) {
+        const newUser = {
+          id: authData.user.id,
+          name: cleanName,
+          passwordHash: "",
+          createdAt: new Date().toISOString()
+        };
+        await db.createUser(newUser); // Syncs with Supabase public.users if enabled, and local registry fallback
+        const token = jwt.sign({ id: newUser.id, name: cleanName }, JWT_SECRET, { expiresIn: '7d' });
+        return res.status(201).json({ token, user: { id: newUser.id, name: cleanName } });
+      } else if (authError) {
+        console.warn("Supabase Auth registration yielded an error, falling back to local database...", authError.message);
+      }
+    } catch (supabaseErr) {
+      console.warn("Supabase Auth registration failed/unconfigured, falling back to local database...", supabaseErr);
     }
-  } catch (supabaseErr) {
-    console.warn("Supabase Auth registration failed/unconfigured, falling back to local database...", supabaseErr);
   }
 
   // 2. Local Database Fallback
@@ -125,30 +127,32 @@ app.post("/api/auth/login", async (req, res) => {
   const pseudoEmail = cleanName.includes('@') ? cleanName.toLowerCase() : `${cleanName.toLowerCase()}@local.com`;
 
   // 1. Try Supabase Auth First
-  try {
-    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-      email: pseudoEmail,
-      password,
-    });
+  if (!LOCAL_ONLY) {
+    try {
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        email: pseudoEmail,
+        password,
+      });
 
-    if (!authError && authData?.user) {
-      // Create user row in public.users if it doesn't exist yet (robust healing)
-      const existing = await db.findUserByName(cleanName);
-      if (!existing) {
-        await db.createUser({
-          id: authData.user.id,
-          name: cleanName,
-          passwordHash: "",
-          createdAt: authData.user.created_at || new Date().toISOString()
-        });
+      if (!authError && authData?.user) {
+        // Create user row in public.users if it doesn't exist yet (robust healing)
+        const existing = await db.findUserByName(cleanName);
+        if (!existing) {
+          await db.createUser({
+            id: authData.user.id,
+            name: cleanName,
+            passwordHash: "",
+            createdAt: authData.user.created_at || new Date().toISOString()
+          });
+        }
+        const token = jwt.sign({ id: authData.user.id, name: cleanName }, JWT_SECRET, { expiresIn: '7d' });
+        return res.json({ token, user: { id: authData.user.id, name: cleanName } });
+      } else if (authError) {
+        console.warn("Supabase Auth login yielded an error, executing legacy local fallback check:", authError.message);
       }
-      const token = jwt.sign({ id: authData.user.id, name: cleanName }, JWT_SECRET, { expiresIn: '7d' });
-      return res.json({ token, user: { id: authData.user.id, name: cleanName } });
-    } else if (authError) {
-      console.warn("Supabase Auth login yielded an error, executing legacy local fallback check:", authError.message);
+    } catch (supabaseErr) {
+      console.warn("Supabase auth login unconfigured/timeout, checking local fallback store:", supabaseErr);
     }
-  } catch (supabaseErr) {
-    console.warn("Supabase auth login unconfigured/timeout, checking local fallback store:", supabaseErr);
   }
 
   // 2. Local Database Fallback
@@ -159,7 +163,7 @@ app.post("/api/auth/login", async (req, res) => {
     }
 
     // If password hash is empty but Supabase user exists and has connected (meaning password was created via supabase auth)
-    if (!user.passwordHash && user.id) {
+    if (!user.passwordHash && user.id && !LOCAL_ONLY) {
       return res.status(400).json({ error: "Please login with your Supabase credentials" });
     }
 

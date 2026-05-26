@@ -152,7 +152,7 @@ export function Generator({ onNavigate, onSuccess }: GeneratorProps) {
           </div>
 
           {error && (
-            <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 text-red-650 dark:text-red-400 text-sm rounded-2xl flex items-start gap-2 max-w-2xl">
+            <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 text-red-600 dark:text-red-400 text-sm rounded-2xl flex items-start gap-2 max-w-2xl">
               <HelpCircle className="h-5 w-5 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -161,7 +161,7 @@ export function Generator({ onNavigate, onSuccess }: GeneratorProps) {
           {/* Section 1: Prompt Input */}
           <div className="bg-white dark:bg-[#0f1524] border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-50 dark:border-slate-800/40 pb-3">
-              <FileText className="h-5 w-5 text-indigo-505 dark:text-indigo-450 shrink-0" />
+              <FileText className="h-5 w-5 text-indigo-500 dark:text-indigo-450 shrink-0" />
               <h3 className="font-bold text-slate-800 dark:text-slate-200 text-sm uppercase tracking-wider">Concept Proposal</h3>
             </div>
 
@@ -196,7 +196,7 @@ export function Generator({ onNavigate, onSuccess }: GeneratorProps) {
           {/* Section 2: Choose Template Group */}
           <div className="bg-white dark:bg-[#0f1524] border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-50 dark:border-slate-800/40 pb-3">
-              <Palette className="h-5 w-5 text-indigo-505 dark:text-indigo-450 shrink-0" />
+              <Palette className="h-5 w-5 text-indigo-500 dark:text-indigo-450 shrink-0" />
               <h3 className="font-bold text-slate-800 dark:text-slate-200 text-sm uppercase tracking-wider">Design Style Preset</h3>
             </div>
 
@@ -214,7 +214,7 @@ export function Generator({ onNavigate, onSuccess }: GeneratorProps) {
                     onClick={() => setTemplateCategory(t.id)}
                     className={`p-4 rounded-xl border text-left cursor-pointer transition-all duration-200 flex flex-col justify-between h-28 relative overflow-hidden group select-none ${
                       isSelected 
-                        ? 'border-indigo-500 dark:border-indigo-400 shadow-md ring-2 ring-indigo-505/20 transform -translate-y-0.5' 
+                        ? 'border-indigo-500 dark:border-indigo-400 shadow-md ring-2 ring-indigo-500/20 transform -translate-y-0.5' 
                         : 'border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50'
                     }`}
                   >
@@ -244,7 +244,7 @@ export function Generator({ onNavigate, onSuccess }: GeneratorProps) {
           {/* Section 3: Fine Tune Settings */}
           <div className="bg-white dark:bg-[#0f1524] border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
             <div className="flex items-center gap-2 border-b border-slate-50 dark:border-slate-800/40 pb-3">
-              <Settings className="h-5 w-5 text-indigo-505 dark:text-indigo-455 shrink-0" />
+              <Settings className="h-5 w-5 text-indigo-500 dark:text-indigo-455 shrink-0" />
               <h3 className="font-bold text-slate-800 dark:text-slate-200 text-sm uppercase tracking-wider">Presentational Layout Parameters</h3>
             </div>
 
@@ -279,7 +279,7 @@ export function Generator({ onNavigate, onSuccess }: GeneratorProps) {
                 <select
                   value={stylePreference}
                   onChange={(e) => setStylePreference(e.target.value)}
-                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-805 dark:text-slate-150 rounded-xl text-xs outline-none focus:border-indigo-400 focus:bg-white dark:focus:bg-[#0f1524] transition"
+                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-150 rounded-xl text-xs outline-none focus:border-indigo-400 focus:bg-white dark:focus:bg-[#0f1524] transition"
                 >
                   <option value="professional">Professional / Corporate</option>
                   <option value="academic">Academic / Insightful</option>
@@ -296,7 +296,7 @@ export function Generator({ onNavigate, onSuccess }: GeneratorProps) {
                 <select
                   value={audienceType}
                   onChange={(e) => setAudienceType(e.target.value)}
-                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-805 dark:text-slate-150 rounded-xl text-xs outline-none focus:border-indigo-400 focus:bg-white dark:focus:bg-[#0f1524] transition"
+                  className="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-150 rounded-xl text-xs outline-none focus:border-indigo-400 focus:bg-white dark:focus:bg-[#0f1524] transition"
                 >
                   <option value="general">General Public</option>
                   <option value="executives">Executive Board Members</option>
@@ -343,7 +343,7 @@ export function Generator({ onNavigate, onSuccess }: GeneratorProps) {
           <div className="flex justify-end pt-4">
             <button
               type="submit"
-              className="bg-indigo-605 dark:bg-indigo-600 hover:bg-indigo-705 dark:hover:bg-indigo-700 text-white font-medium text-sm px-8 py-3.5 rounded-xl flex items-center gap-2 shadow-lg shadow-indigo-610/20 dark:shadow-indigo-600/15 px-8 cursor-pointer transition transform active:scale-[0.98]"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm px-8 py-3.5 rounded-xl flex items-center gap-2 shadow-lg shadow-indigo-600/20 dark:shadow-indigo-600/15 cursor-pointer transition transform active:scale-[0.98]"
             >
               <Sparkles className="h-4.5 w-4.5" />
               <span>Compile Widescreen Slide Deck</span>

@@ -35,7 +35,7 @@ export function Dashboard({ onNavigate, userName }: DashboardProps) {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
-  const [supabaseStatus, setSupabaseStatus] = useState<{ initialized: boolean; connected?: boolean; tableAvailable: boolean; usersTableAvailable: boolean; errors?: any } | null>(null);
+  const [supabaseStatus, setSupabaseStatus] = useState<{ initialized: boolean; connected?: boolean; tableAvailable: boolean; usersTableAvailable: boolean; localOnly?: boolean; errors?: any } | null>(null);
   const [copiedSql, setCopiedSql] = useState(false);
   const { showToast } = useToast();
 
@@ -108,9 +108,17 @@ export function Dashboard({ onNavigate, userName }: DashboardProps) {
       {/* Upper Welcome Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 border-b border-slate-100 dark:border-slate-800/80 pb-6">
         <div>
-          <span className="text-xs text-indigo-600 dark:text-indigo-400 font-mono font-semibold uppercase tracking-wider block mb-1">
-            Secure workspace
-          </span>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-xs text-indigo-600 dark:text-indigo-400 font-mono font-semibold uppercase tracking-wider block">
+              Secure workspace
+            </span>
+            {supabaseStatus?.localOnly && (
+              <span className="text-[10px] bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 font-mono select-none">
+                <Database className="h-3 w-3 text-emerald-500" />
+                <span>DB: Local Mode</span>
+              </span>
+            )}
+          </div>
           <h1 className="text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-slate-50">
             Welcome back, <span className="text-slate-750 dark:text-slate-300">{userName}</span>
           </h1>
@@ -129,7 +137,7 @@ export function Dashboard({ onNavigate, userName }: DashboardProps) {
       </div>
 
       {/* Database Setup & Diagnostic Banner */}
-      {supabaseStatus && (supabaseStatus.errors?.presentations || supabaseStatus.errors?.users || !supabaseStatus.tableAvailable || !supabaseStatus.usersTableAvailable) && (
+      {supabaseStatus && !supabaseStatus.localOnly && (supabaseStatus.errors?.presentations || supabaseStatus.errors?.users || !supabaseStatus.tableAvailable || !supabaseStatus.usersTableAvailable) && (
         <div className="mb-8 p-6 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-2xl">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400 rounded-xl shrink-0">
@@ -266,7 +274,7 @@ ALTER TABLE users DISABLE ROW LEVEL SECURITY;`
           <p className="text-slate-500 dark:text-slate-450 text-sm">Synchronizing presentational index...</p>
         </div>
       ) : error ? (
-        <div className="p-6 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/50 text-red-650 dark:text-red-400 rounded-2xl text-sm mb-6 flex items-center gap-3">
+        <div className="p-6 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/50 text-red-600 dark:text-red-400 rounded-2xl text-sm mb-6 flex items-center gap-3">
           <BarChart3 className="h-5 w-5" />
           <span>{error}</span>
         </div>

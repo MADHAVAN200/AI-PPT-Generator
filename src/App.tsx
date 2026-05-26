@@ -83,7 +83,7 @@ export default function App() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center font-sans select-none text-slate-400">
         <div className="text-center">
           <div className="relative inline-block mb-4">
-            <div className="w-12 h-12 border-4 border-indigo-150 border-t-indigo-600 rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
             <PresentationIcon className="h-5 w-5 text-indigo-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
           </div>
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 font-mono">Initializing platform...</p>
@@ -163,7 +163,7 @@ export default function App() {
             {/* Theme Toggle Switcher */}
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-xl text-slate-500 dark:text-slate-400 cursor-pointer transition"
+              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 cursor-pointer transition"
               title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {darkMode ? <Sun className="h-4.5 w-4.5 text-amber-500" /> : <Moon className="h-4.5 w-4.5" />}

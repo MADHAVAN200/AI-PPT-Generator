@@ -16,6 +16,7 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
 let isSupabaseTableAvailable = false;
 let isUsersTableAvailable = false;
 let verifiedOnce = false;
+export const LOCAL_ONLY = true; // Set to true to bypass Supabase for pure local portfolio execution
 
 // Convert snake_case from DB into camelCase for application Presentation structure
 export function mapFromDb(row: any): any {
@@ -87,6 +88,19 @@ export function mapUserToDb(user: any): any {
 
 // Function to check connection/availability and return state
 export async function getSupabaseStatus() {
+  if (LOCAL_ONLY) {
+    return {
+      initialized: true,
+      connected: false,
+      tableAvailable: false,
+      usersTableAvailable: false,
+      localOnly: true,
+      errors: {
+        presentations: null,
+        users: null
+      }
+    };
+  }
   let presentationsError: any = null;
   let usersError: any = null;
   let isConnected = true;
