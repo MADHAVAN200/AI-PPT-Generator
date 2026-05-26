@@ -1,4 +1,4 @@
-# AI PPT Presentation Generator ─ Single Source of Documentation
+# AI PPT Presentation Generator 
 
 Welcome to the **AI PPT Presentation Generator** codebase. This comprehensive artifact serves as the authoritative, single source of documentation, describing the software architecture, design decisions, data workflows, API patterns, and build system configuration of this full-stack application.
 
@@ -12,7 +12,7 @@ The project is structured as a robust **Full-Stack hybrid SPA/API architecture**
 
 ```
                                               ┌────────────────────────┐
-                                              │      Google Drive       │
+                                              │      Google Drive      │
                                               │    (Google Slides)     │
                                               └───────────▲────────────┘
                                                           │ (Popup OAuth)
