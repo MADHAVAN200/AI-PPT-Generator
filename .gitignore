@@ -22,6 +22,10 @@ db.json
 .env*
 !.env.example
 
+# Firebase configuration & keys (contains sensitive credentials)
+firebase-applet-config.json
+firebase-key.json
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
